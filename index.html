@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Studio Penggabung Audio YouTube</title>
+<title>YouTube Audio Merger Studio</title>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
@@ -18,10 +17,9 @@
 }
 
 body{
-    background:#0f172a;
+    background:#020617;
     font-family:'Poppins',sans-serif;
     color:white;
-    min-height:100vh;
     padding:30px;
 }
 
@@ -30,18 +28,18 @@ body{
     margin:auto;
 }
 
-.title{
+.header{
     text-align:center;
     margin-bottom:35px;
 }
 
-.title h1{
+.header h1{
     font-size:42px;
     margin-bottom:10px;
 }
 
-.title p{
-    color:#cbd5e1;
+.header p{
+    color:#94a3b8;
 }
 
 .grid{
@@ -51,34 +49,28 @@ body{
 }
 
 .card{
-    background:#1e293b;
-    border-radius:20px;
+    background:#111827;
+    border-radius:24px;
     padding:25px;
-    box-shadow:0 10px 35px rgba(0,0,0,0.3);
+    box-shadow:0 10px 40px rgba(0,0,0,0.4);
 }
 
 .card h2{
-    margin-bottom:18px;
-    font-size:24px;
+    margin-bottom:20px;
 }
 
 .upload-box{
-    border:2px dashed #475569;
-    border-radius:15px;
+    border:2px dashed #334155;
+    border-radius:18px;
     padding:35px;
     text-align:center;
-    background:#0f172a;
-    transition:0.3s;
-}
-
-.upload-box:hover{
-    border-color:#38bdf8;
+    background:#020617;
 }
 
 input[type=file]{
+    width:100%;
     margin-top:15px;
     color:white;
-    width:100%;
 }
 
 .file-list{
@@ -86,50 +78,51 @@ input[type=file]{
 }
 
 .file-item{
-    background:#334155;
-    padding:12px 15px;
+    background:#1e293b;
+    padding:14px;
     border-radius:12px;
     margin-bottom:10px;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:10px;
 }
 
 .preview{
     margin-top:20px;
 }
 
-.preview img{
-    width:100%;
-    border-radius:15px;
-    object-fit:cover;
-    max-height:300px;
-}
-
+.preview img,
 .preview video{
     width:100%;
-    border-radius:15px;
+    border-radius:16px;
 }
 
-.controls{
-    margin-top:25px;
+.meta{
+    margin-top:20px;
+}
+
+.meta input{
+    width:100%;
+    padding:15px;
+    border:none;
+    border-radius:12px;
+    margin-bottom:12px;
+    background:#1e293b;
+    color:white;
 }
 
 button{
     width:100%;
     border:none;
-    padding:15px;
+    padding:16px;
     border-radius:14px;
-    font-size:16px;
-    font-weight:600;
     cursor:pointer;
+    font-weight:600;
+    font-size:16px;
     transition:0.3s;
 }
 
 .merge-btn{
     background:#38bdf8;
     color:#0f172a;
+    margin-top:20px;
 }
 
 .merge-btn:hover{
@@ -147,31 +140,45 @@ button{
     background:#16a34a;
 }
 
-.loading{
-    text-align:center;
+.progress-container{
     margin-top:20px;
-    color:#38bdf8;
     display:none;
 }
 
-.meta{
-    margin-top:20px;
+.progress-bar{
+    width:100%;
+    height:18px;
+    background:#1e293b;
+    border-radius:20px;
+    overflow:hidden;
 }
 
-.meta input{
-    width:100%;
-    padding:14px;
-    border:none;
+.progress{
+    width:0%;
+    height:100%;
+    background:linear-gradient(90deg,#38bdf8,#22c55e);
+    transition:0.3s;
+}
+
+.progress-text{
+    margin-top:10px;
+    color:#cbd5e1;
+    text-align:center;
+}
+
+.info{
+    margin-top:20px;
+    background:#1e293b;
+    padding:15px;
     border-radius:12px;
-    margin-bottom:12px;
-    background:#334155;
-    color:white;
+    color:#cbd5e1;
+    line-height:1.7;
 }
 
 .footer{
-    margin-top:40px;
     text-align:center;
-    color:#94a3b8;
+    margin-top:40px;
+    color:#64748b;
 }
 
 @media(max-width:900px){
@@ -180,22 +187,24 @@ button{
         grid-template-columns:1fr;
     }
 
-    .title h1{
-        font-size:32px;
+    .header h1{
+        font-size:30px;
     }
 
 }
 
 </style>
 </head>
+
 <body>
 
 <div class="container">
 
-    <div class="title">
-        <h1>YouTube Audio Studio</h1>
+    <div class="header">
+        <h1>YouTube Audio Merger Studio</h1>
+
         <p>
-            Gabungkan audio MP3 + upload cover/media siap upload ke YouTube
+            Gabungkan beberapa audio menjadi satu durasi panjang siap upload YouTube
         </p>
     </div>
 
@@ -204,56 +213,79 @@ button{
         <!-- AUDIO -->
         <div class="card">
 
-            <h2>Upload Audio MP3</h2>
+            <h2>Upload Audio</h2>
 
             <div class="upload-box">
+
                 <p>Pilih beberapa file MP3</p>
 
                 <input type="file" id="audioInput" multiple accept="audio/*">
+
             </div>
 
-            <div class="file-list" id="audioList"></div>
+            <div class="file-list" id="fileList"></div>
 
-            <div class="controls">
+            <div class="info">
+                Contoh:
+                <br><br>
 
-                <button class="merge-btn" id="mergeBtn">
-                    Gabungkan Audio
-                </button>
+                Audio 1 = 2 menit
+                <br>
 
-                <div class="loading" id="loading">
-                    Sedang menggabungkan audio...
+                Audio 2 = 2 menit
+                <br><br>
+
+                Maka hasil final = 4 menit (disambung berurutan)
+            </div>
+
+            <button class="merge-btn" id="mergeBtn">
+                Gabungkan Audio
+            </button>
+
+            <div class="progress-container" id="progressContainer">
+
+                <div class="progress-bar">
+                    <div class="progress" id="progress"></div>
                 </div>
 
-                <a id="downloadLink" download="youtube-audio.wav">
-
-                    <button class="download-btn" id="downloadBtn">
-                        Download Audio Final
-                    </button>
-
-                </a>
+                <div class="progress-text" id="progressText">
+                    Memproses...
+                </div>
 
             </div>
+
+            <a id="downloadLink" download="youtube-audio.mp4">
+
+                <button class="download-btn" id="downloadBtn">
+                    Download MP4
+                </button>
+
+            </a>
 
         </div>
 
         <!-- MEDIA -->
         <div class="card">
 
-            <h2>Upload Cover / Media</h2>
+            <h2>Upload Cover / Background</h2>
 
             <div class="upload-box">
-                <p>Upload gambar thumbnail atau video background</p>
+
+                <p>
+                    Upload gambar thumbnail atau video background
+                </p>
 
                 <input type="file" id="mediaInput" accept="image/*,video/*">
+
             </div>
 
             <div class="preview" id="preview"></div>
 
             <div class="meta">
 
-                <input type="text" id="titleInput" placeholder="Judul YouTube">
+                <input type="text" placeholder="Judul YouTube">
 
-                <input type="text" id="artistInput" placeholder="Nama Channel / Artist">
+                <input type="text" placeholder="Nama Channel">
 
             </div>
 
@@ -262,7 +294,7 @@ button{
     </div>
 
     <div class="footer">
-        HTML + JavaScript • Support GitHub Pages & Vercel
+        HTML + JavaScript • Siap Upload ke GitHub & Vercel
     </div>
 
 </div>
@@ -270,14 +302,19 @@ button{
 <script>
 
 const audioInput = document.getElementById("audioInput");
-const audioList = document.getElementById("audioList");
-const mergeBtn = document.getElementById("mergeBtn");
-const loading = document.getElementById("loading");
-const downloadBtn = document.getElementById("downloadBtn");
-const downloadLink = document.getElementById("downloadLink");
+const fileList = document.getElementById("fileList");
 
 const mediaInput = document.getElementById("mediaInput");
 const preview = document.getElementById("preview");
+
+const mergeBtn = document.getElementById("mergeBtn");
+
+const progressContainer = document.getElementById("progressContainer");
+const progress = document.getElementById("progress");
+const progressText = document.getElementById("progressText");
+
+const downloadBtn = document.getElementById("downloadBtn");
+const downloadLink = document.getElementById("downloadLink");
 
 let selectedFiles = [];
 
@@ -285,13 +322,13 @@ audioInput.addEventListener("change",(e)=>{
 
     selectedFiles = [...e.target.files];
 
-    renderAudioList();
+    renderFiles();
 
 });
 
-function renderAudioList(){
+function renderFiles(){
 
-    audioList.innerHTML = "";
+    fileList.innerHTML = "";
 
     selectedFiles.forEach((file,index)=>{
 
@@ -300,10 +337,10 @@ function renderAudioList(){
         div.className = "file-item";
 
         div.innerHTML = `
-            <span>${index+1}. ${file.name}</span>
+            ${index + 1}. ${file.name}
         `;
 
-        audioList.appendChild(div);
+        fileList.appendChild(div);
 
     });
 
@@ -344,33 +381,37 @@ mergeBtn.addEventListener("click", async ()=>{
         return;
     }
 
-    loading.style.display = "block";
+    progressContainer.style.display = "block";
+
+    progress.style.width = "0%";
 
     const audioContext = new(window.AudioContext || window.webkitAudioContext)();
 
     let audioBuffers = [];
 
-    for(const file of selectedFiles){
+    let totalLength = 0;
 
-        const arrayBuffer = await file.arrayBuffer();
+    for(let i = 0; i < selectedFiles.length; i++){
+
+        progressText.innerHTML = `Membaca audio ${i+1} dari ${selectedFiles.length}`;
+
+        const arrayBuffer = await selectedFiles[i].arrayBuffer();
 
         const audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
 
         audioBuffers.push(audioBuffer);
+
+        totalLength += audioBuffer.length;
+
+        const percent = ((i + 1) / selectedFiles.length) * 50;
+
+        progress.style.width = percent + "%";
 
     }
 
     const numberOfChannels = 2;
 
     const sampleRate = audioBuffers[0].sampleRate;
-
-    let totalLength = 0;
-
-    audioBuffers.forEach(buffer=>{
-
-        totalLength += buffer.length;
-
-    });
 
     const outputBuffer = audioContext.createBuffer(
 
@@ -382,7 +423,11 @@ mergeBtn.addEventListener("click", async ()=>{
 
     let offset = 0;
 
-    audioBuffers.forEach(buffer=>{
+    for(let i = 0; i < audioBuffers.length; i++){
+
+        const buffer = audioBuffers[i];
+
+        progressText.innerHTML = `Menggabungkan audio ${i+1}`;
 
         for(let channel = 0; channel < numberOfChannels; channel++){
 
@@ -400,7 +445,13 @@ mergeBtn.addEventListener("click", async ()=>{
 
         offset += buffer.length;
 
-    });
+        const percent = 50 + (((i + 1) / audioBuffers.length) * 50);
+
+        progress.style.width = percent + "%";
+
+    }
+
+    progressText.innerHTML = "Membuat file MP4...";
 
     const wavBlob = bufferToWave(outputBuffer,totalLength);
 
@@ -408,9 +459,11 @@ mergeBtn.addEventListener("click", async ()=>{
 
     downloadLink.href = url;
 
-    loading.style.display = "none";
-
     downloadBtn.style.display = "block";
+
+    progress.style.width = "100%";
+
+    progressText.innerHTML = "Selesai ✓";
 
 });
 
@@ -454,7 +507,9 @@ function bufferToWave(abuffer, len){
 
             let sample = Math.max(-1, Math.min(1, channels[i][offset]));
 
-            sample = sample < 0 ? sample * 0x8000 : sample * 0x7FFF;
+            sample = sample < 0
+                ? sample * 0x8000
+                : sample * 0x7FFF;
 
             view.setInt16(pos, sample, true);
 
@@ -482,7 +537,7 @@ function bufferToWave(abuffer, len){
 
     }
 
-    return new Blob([buffer], {type:"audio/wav"});
+    return new Blob([buffer], {type:"audio/mp4"});
 
 }
 
