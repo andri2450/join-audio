@@ -1,224 +1,363 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>MP3 Audio Merger Online</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-  <style>
-    *{
-      margin:0;
-      padding:0;
-      box-sizing:border-box;
-      font-family:Arial, sans-serif;
+<title>Studio Penggabung Audio YouTube</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    background:#0f172a;
+    font-family:'Poppins',sans-serif;
+    color:white;
+    min-height:100vh;
+    padding:30px;
+}
+
+.container{
+    max-width:1200px;
+    margin:auto;
+}
+
+.title{
+    text-align:center;
+    margin-bottom:35px;
+}
+
+.title h1{
+    font-size:42px;
+    margin-bottom:10px;
+}
+
+.title p{
+    color:#cbd5e1;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:25px;
+}
+
+.card{
+    background:#1e293b;
+    border-radius:20px;
+    padding:25px;
+    box-shadow:0 10px 35px rgba(0,0,0,0.3);
+}
+
+.card h2{
+    margin-bottom:18px;
+    font-size:24px;
+}
+
+.upload-box{
+    border:2px dashed #475569;
+    border-radius:15px;
+    padding:35px;
+    text-align:center;
+    background:#0f172a;
+    transition:0.3s;
+}
+
+.upload-box:hover{
+    border-color:#38bdf8;
+}
+
+input[type=file]{
+    margin-top:15px;
+    color:white;
+    width:100%;
+}
+
+.file-list{
+    margin-top:20px;
+}
+
+.file-item{
+    background:#334155;
+    padding:12px 15px;
+    border-radius:12px;
+    margin-bottom:10px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+}
+
+.preview{
+    margin-top:20px;
+}
+
+.preview img{
+    width:100%;
+    border-radius:15px;
+    object-fit:cover;
+    max-height:300px;
+}
+
+.preview video{
+    width:100%;
+    border-radius:15px;
+}
+
+.controls{
+    margin-top:25px;
+}
+
+button{
+    width:100%;
+    border:none;
+    padding:15px;
+    border-radius:14px;
+    font-size:16px;
+    font-weight:600;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.merge-btn{
+    background:#38bdf8;
+    color:#0f172a;
+}
+
+.merge-btn:hover{
+    background:#0ea5e9;
+}
+
+.download-btn{
+    background:#22c55e;
+    color:white;
+    margin-top:15px;
+    display:none;
+}
+
+.download-btn:hover{
+    background:#16a34a;
+}
+
+.loading{
+    text-align:center;
+    margin-top:20px;
+    color:#38bdf8;
+    display:none;
+}
+
+.meta{
+    margin-top:20px;
+}
+
+.meta input{
+    width:100%;
+    padding:14px;
+    border:none;
+    border-radius:12px;
+    margin-bottom:12px;
+    background:#334155;
+    color:white;
+}
+
+.footer{
+    margin-top:40px;
+    text-align:center;
+    color:#94a3b8;
+}
+
+@media(max-width:900px){
+
+    .grid{
+        grid-template-columns:1fr;
     }
 
-    body{
-      background:#0f172a;
-      color:white;
-      min-height:100vh;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding:20px;
+    .title h1{
+        font-size:32px;
     }
 
-    .container{
-      width:100%;
-      max-width:900px;
-      background:#1e293b;
-      border-radius:20px;
-      padding:30px;
-      box-shadow:0 10px 40px rgba(0,0,0,0.4);
-    }
+}
 
-    h1{
-      font-size:32px;
-      margin-bottom:10px;
-      text-align:center;
-    }
-
-    p{
-      text-align:center;
-      color:#cbd5e1;
-      margin-bottom:25px;
-    }
-
-    .upload-box{
-      border:2px dashed #475569;
-      padding:40px;
-      text-align:center;
-      border-radius:15px;
-      background:#0f172a;
-      transition:0.3s;
-    }
-
-    .upload-box:hover{
-      border-color:#38bdf8;
-    }
-
-    input[type=file]{
-      margin-top:15px;
-      color:white;
-    }
-
-    .file-list{
-      margin-top:25px;
-    }
-
-    .file-item{
-      background:#334155;
-      padding:12px 15px;
-      border-radius:10px;
-      margin-bottom:10px;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-    }
-
-    button{
-      border:none;
-      padding:14px 22px;
-      border-radius:12px;
-      cursor:pointer;
-      font-size:16px;
-      font-weight:bold;
-      transition:0.3s;
-    }
-
-    .merge-btn{
-      width:100%;
-      margin-top:25px;
-      background:#38bdf8;
-      color:#0f172a;
-    }
-
-    .merge-btn:hover{
-      background:#0ea5e9;
-    }
-
-    .download-btn{
-      background:#22c55e;
-      color:white;
-      display:none;
-      margin-top:20px;
-      width:100%;
-    }
-
-    .download-btn:hover{
-      background:#16a34a;
-    }
-
-    audio{
-      width:100%;
-      margin-top:10px;
-    }
-
-    .footer{
-      text-align:center;
-      margin-top:25px;
-      color:#94a3b8;
-      font-size:14px;
-    }
-
-    .loading{
-      text-align:center;
-      margin-top:20px;
-      color:#38bdf8;
-      display:none;
-    }
-  </style>
+</style>
 </head>
 <body>
 
 <div class="container">
 
-  <h1>MP3 Audio Merger</h1>
+    <div class="title">
+        <h1>YouTube Audio Studio</h1>
+        <p>
+            Gabungkan audio MP3 + upload cover/media siap upload ke YouTube
+        </p>
+    </div>
 
-  <p>
-    Gabungkan beberapa file MP3 menjadi satu audio langsung di browser.
-  </p>
+    <div class="grid">
 
-  <div class="upload-box">
-    <h2>Upload File MP3</h2>
+        <!-- AUDIO -->
+        <div class="card">
 
-    <input type="file" id="audioInput" accept="audio/mp3,audio/*" multiple>
-  </div>
+            <h2>Upload Audio MP3</h2>
 
-  <div class="file-list" id="fileList"></div>
+            <div class="upload-box">
+                <p>Pilih beberapa file MP3</p>
 
-  <button class="merge-btn" id="mergeBtn">
-    Gabungkan Audio
-  </button>
+                <input type="file" id="audioInput" multiple accept="audio/*">
+            </div>
 
-  <div class="loading" id="loading">
-    Sedang menggabungkan audio...
-  </div>
+            <div class="file-list" id="audioList"></div>
 
-  <a id="downloadLink" download="merged-audio.wav">
-    <button class="download-btn" id="downloadBtn">
-      Download Audio Gabungan
-    </button>
-  </a>
+            <div class="controls">
 
-  <div class="footer">
-    Dibuat dengan HTML + JavaScript • Cocok untuk GitHub Pages
-  </div>
+                <button class="merge-btn" id="mergeBtn">
+                    Gabungkan Audio
+                </button>
+
+                <div class="loading" id="loading">
+                    Sedang menggabungkan audio...
+                </div>
+
+                <a id="downloadLink" download="youtube-audio.wav">
+
+                    <button class="download-btn" id="downloadBtn">
+                        Download Audio Final
+                    </button>
+
+                </a>
+
+            </div>
+
+        </div>
+
+        <!-- MEDIA -->
+        <div class="card">
+
+            <h2>Upload Cover / Media</h2>
+
+            <div class="upload-box">
+                <p>Upload gambar thumbnail atau video background</p>
+
+                <input type="file" id="mediaInput" accept="image/*,video/*">
+            </div>
+
+            <div class="preview" id="preview"></div>
+
+            <div class="meta">
+
+                <input type="text" id="titleInput" placeholder="Judul YouTube">
+
+                <input type="text" id="artistInput" placeholder="Nama Channel / Artist">
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="footer">
+        HTML + JavaScript • Support GitHub Pages & Vercel
+    </div>
 
 </div>
 
 <script>
-  const audioInput = document.getElementById("audioInput");
-  const fileList = document.getElementById("fileList");
-  const mergeBtn = document.getElementById("mergeBtn");
-  const loading = document.getElementById("loading");
-  const downloadBtn = document.getElementById("downloadBtn");
-  const downloadLink = document.getElementById("downloadLink");
 
-  let selectedFiles = [];
+const audioInput = document.getElementById("audioInput");
+const audioList = document.getElementById("audioList");
+const mergeBtn = document.getElementById("mergeBtn");
+const loading = document.getElementById("loading");
+const downloadBtn = document.getElementById("downloadBtn");
+const downloadLink = document.getElementById("downloadLink");
 
-  audioInput.addEventListener("change", (e) => {
+const mediaInput = document.getElementById("mediaInput");
+const preview = document.getElementById("preview");
+
+let selectedFiles = [];
+
+audioInput.addEventListener("change",(e)=>{
+
     selectedFiles = [...e.target.files];
 
-    renderFiles();
-  });
+    renderAudioList();
 
-  function renderFiles(){
-    fileList.innerHTML = "";
+});
 
-    selectedFiles.forEach((file, index) => {
+function renderAudioList(){
 
-      const div = document.createElement("div");
-      div.className = "file-item";
+    audioList.innerHTML = "";
 
-      div.innerHTML = `
-        <span>${index + 1}. ${file.name}</span>
-      `;
+    selectedFiles.forEach((file,index)=>{
 
-      fileList.appendChild(div);
+        const div = document.createElement("div");
+
+        div.className = "file-item";
+
+        div.innerHTML = `
+            <span>${index+1}. ${file.name}</span>
+        `;
+
+        audioList.appendChild(div);
+
     });
-  }
 
-  mergeBtn.addEventListener("click", async () => {
+}
+
+mediaInput.addEventListener("change",(e)=>{
+
+    const file = e.target.files[0];
+
+    if(!file) return;
+
+    const url = URL.createObjectURL(file);
+
+    preview.innerHTML = "";
+
+    if(file.type.startsWith("image")){
+
+        preview.innerHTML = `
+            <img src="${url}">
+        `;
+
+    }else if(file.type.startsWith("video")){
+
+        preview.innerHTML = `
+            <video src="${url}" controls></video>
+        `;
+
+    }
+
+});
+
+mergeBtn.addEventListener("click", async ()=>{
 
     if(selectedFiles.length < 2){
-      alert("Upload minimal 2 file audio.");
-      return;
+
+        alert("Upload minimal 2 audio.");
+
+        return;
     }
 
     loading.style.display = "block";
 
-    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    const audioContext = new(window.AudioContext || window.webkitAudioContext)();
 
     let audioBuffers = [];
 
     for(const file of selectedFiles){
 
-      const arrayBuffer = await file.arrayBuffer();
+        const arrayBuffer = await file.arrayBuffer();
 
-      const audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
+        const audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
 
-      audioBuffers.push(audioBuffer);
+        audioBuffers.push(audioBuffer);
+
     }
 
     const numberOfChannels = 2;
@@ -227,35 +366,43 @@
 
     let totalLength = 0;
 
-    audioBuffers.forEach(buffer => {
-      totalLength += buffer.length;
+    audioBuffers.forEach(buffer=>{
+
+        totalLength += buffer.length;
+
     });
 
     const outputBuffer = audioContext.createBuffer(
-      numberOfChannels,
-      totalLength,
-      sampleRate
+
+        numberOfChannels,
+        totalLength,
+        sampleRate
+
     );
 
     let offset = 0;
 
-    audioBuffers.forEach(buffer => {
+    audioBuffers.forEach(buffer=>{
 
-      for(let channel = 0; channel < numberOfChannels; channel++){
+        for(let channel = 0; channel < numberOfChannels; channel++){
 
-        const outputData = outputBuffer.getChannelData(channel);
+            const outputData = outputBuffer.getChannelData(channel);
 
-        const inputData = buffer.getChannelData(
-          Math.min(channel, buffer.numberOfChannels - 1)
-        );
+            const inputData = buffer.getChannelData(
 
-        outputData.set(inputData, offset);
-      }
+                Math.min(channel, buffer.numberOfChannels - 1)
 
-      offset += buffer.length;
+            );
+
+            outputData.set(inputData, offset);
+
+        }
+
+        offset += buffer.length;
+
     });
 
-    const wavBlob = bufferToWave(outputBuffer, totalLength);
+    const wavBlob = bufferToWave(outputBuffer,totalLength);
 
     const url = URL.createObjectURL(wavBlob);
 
@@ -264,16 +411,17 @@
     loading.style.display = "none";
 
     downloadBtn.style.display = "block";
-  });
 
-  function bufferToWave(abuffer, len) {
+});
+
+function bufferToWave(abuffer, len){
 
     const numOfChan = abuffer.numberOfChannels,
-      length = len * numOfChan * 2 + 44,
-      buffer = new ArrayBuffer(length),
-      view = new DataView(buffer),
-      channels = [],
-      sampleRate = abuffer.sampleRate;
+    length = len * numOfChan * 2 + 44,
+    buffer = new ArrayBuffer(length),
+    view = new DataView(buffer),
+    channels = [],
+    sampleRate = abuffer.sampleRate;
 
     let offset = 0;
     let pos = 0;
@@ -294,39 +442,50 @@
     setUint32(0x61746164);
     setUint32(length - pos - 4);
 
-    for(let i = 0; i < abuffer.numberOfChannels; i++)
-      channels.push(abuffer.getChannelData(i));
+    for(let i = 0; i < abuffer.numberOfChannels; i++){
+
+        channels.push(abuffer.getChannelData(i));
+
+    }
 
     while(pos < length){
 
-      for(let i = 0; i < numOfChan; i++){
+        for(let i = 0; i < numOfChan; i++){
 
-        let sample = Math.max(-1, Math.min(1, channels[i][offset]));
+            let sample = Math.max(-1, Math.min(1, channels[i][offset]));
 
-        sample = sample < 0
-          ? sample * 0x8000
-          : sample * 0x7FFF;
+            sample = sample < 0 ? sample * 0x8000 : sample * 0x7FFF;
 
-        view.setInt16(pos, sample, true);
+            view.setInt16(pos, sample, true);
 
-        pos += 2;
-      }
+            pos += 2;
 
-      offset++;
+        }
+
+        offset++;
+
     }
 
     function setUint16(data){
-      view.setUint16(pos, data, true);
-      pos += 2;
+
+        view.setUint16(pos, data, true);
+
+        pos += 2;
+
     }
 
     function setUint32(data){
-      view.setUint32(pos, data, true);
-      pos += 4;
+
+        view.setUint32(pos, data, true);
+
+        pos += 4;
+
     }
 
-    return new Blob([buffer], { type: "audio/wav" });
-  }
+    return new Blob([buffer], {type:"audio/wav"});
+
+}
+
 </script>
 
 </body>
